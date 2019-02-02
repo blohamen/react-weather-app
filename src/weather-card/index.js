@@ -4,20 +4,9 @@ import FontIcon from 'material-ui/FontIcon';
 import weatherTypeConstants from './constants';
 
 const renderSection = (title, value) => (
-    <div style={{
-        flexDirection: 'column',
-        display: 'inherit',
-        alignItems: 'center',
-    }}>
-        <span style={{
-            fontFamily: 'Roboto',
-            opacity: 0.5,
-            fontSize: 20,
-        }}>{title}</span>
-        <span style={{
-            fontFamily: 'Roboto',
-            fontSize: 25,
-        }}>{value}</span>
+    <div className='weathercard-section-container flex'>
+        <span className='weathercard-section-title'>{title}</span>
+        <span className='weathercard-section-value'>{value}</span>
     </div>
 )
 
@@ -26,39 +15,29 @@ export default function WeatherCard({weather}) {
     const {name, main: {humidity, temp}, sys: {country}} = weather;
     const weatherType = weather.weather[0].main;
     return (
-        <div className='weathercard-container'>
-            <div style={{
-                display: 'inline-block',
-                maxWidth: '100%',
-                width: 160,
-            }}>
+        <div className='weathercard-container flex'>
+            <div className='weathercard-icon-container'>
                 <FontIcon
                     {...weatherTypeConstants[weatherType]}
                  />
             </div>
 
-            <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: 240,
-                maxWidth: '100%',
-                alignItems: 'center',
-                justifyContent: 'space-around',
-                borderRight: '1px #BDBDBD solid'
-            }}>
+            <div 
+                className='weathercard-infoblock flex'
+                style={{ width: 240 }}
+            >
                 {renderSection('Temperature', `${temp > 0 ? '+' : ''}${temp}`)} 
                 {renderSection('Humidity', `${humidity}%`)}
             </div>
 
-            <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: 160,
-                maxWidth: '100%',
-                alignItems: 'center',
-                justifyContent: 'space-around',
-                paddingLeft: 10,
-            }}>
+            <div 
+                className='weathercard-infoblock flex'
+                style={{
+                    width: 160,
+                    paddingLeft: 10,
+                    borderRight: 0,
+                }}
+            >
                 {renderSection('City', `${name},${country}`)}
                 {renderSection('Weather type', weatherType)}
             </div>
